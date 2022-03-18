@@ -131,9 +131,7 @@ typedef void (^VoidBlock)();
     unreplied -= 1;
     NSAssert(unreplied >= 0, @"More primary responders replied than possible.");
     anyHandled = anyHandled || handled;
-    // NSLog(@"Rep %lu 0x%x handled %d", pendingTextEvent.event.type, pendingTextEvent.event.keyCode, handled);
     if (unreplied == 0) {
-      // NSLog(@"Event replied: [%lu] 0x%x, should %d", pendingTextEvent.event.type, pendingTextEvent.event.keyCode, pendingTextEvent.shouldDispatch);
       if (!anyHandled) {
         [weakSelf dispatchTextEvent:event];
       }
