@@ -236,6 +236,11 @@ bool get isIOS15 {
       html.window.navigator.userAgent.contains('OS 15_');
 }
 
+/// A flag to check if the browser is iOS Safari.
+bool get isIosSafari =>
+    browserEngine == BrowserEngine.webkit &&
+    operatingSystem == OperatingSystem.iOs;
+
 /// Use in tests to simulate the detection of iOS 15.
 bool? debugIsIOS15;
 
