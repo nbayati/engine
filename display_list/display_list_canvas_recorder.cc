@@ -4,6 +4,7 @@
 
 #include "flutter/display_list/display_list_canvas_recorder.h"
 
+#include "flutter/display_list/display_list_blend_mode.h"
 #include "flutter/display_list/display_list_builder.h"
 
 namespace flutter {
@@ -147,7 +148,7 @@ void DisplayListCanvasRecorder::onDrawVerticesObject(const SkVertices* vertices,
                                                      SkBlendMode mode,
                                                      const SkPaint& paint) {
   builder_->setAttributesFromPaint(paint, kDrawVerticesFlags);
-  builder_->drawVertices(sk_ref_sp(vertices), mode);
+  builder_->drawSkVertices(sk_ref_sp(vertices), mode);
 }
 
 void DisplayListCanvasRecorder::onDrawImage2(const SkImage* image,
@@ -158,7 +159,7 @@ void DisplayListCanvasRecorder::onDrawImage2(const SkImage* image,
   if (paint != nullptr) {
     builder_->setAttributesFromPaint(*paint, kDrawImageWithPaintFlags);
   }
-  builder_->drawImage(sk_ref_sp(image), SkPoint::Make(dx, dy), sampling,
+  builder_->drawImage(DlImage::Make(image), SkPoint::Make(dx, dy), sampling,
                       paint != nullptr);
 }
 void DisplayListCanvasRecorder::onDrawImageRect2(
@@ -171,7 +172,7 @@ void DisplayListCanvasRecorder::onDrawImageRect2(
   if (paint != nullptr) {
     builder_->setAttributesFromPaint(*paint, kDrawImageRectWithPaintFlags);
   }
-  builder_->drawImageRect(sk_ref_sp(image), src, dst, sampling,
+  builder_->drawImageRect(DlImage::Make(image), src, dst, sampling,
                           paint != nullptr, constraint);
 }
 void DisplayListCanvasRecorder::onDrawImageLattice2(const SkImage* image,
@@ -189,7 +190,7 @@ void DisplayListCanvasRecorder::onDrawImageLattice2(const SkImage* image,
       builder_->setAttributesFromPaint(*paint, kDrawImageLatticeWithPaintFlags);
     }
   }
-  builder_->drawImageLattice(sk_ref_sp(image), lattice, dst, filter,
+  builder_->drawImageLattice(DlImage::Make(image), lattice, dst, filter,
                              paint != nullptr);
 }
 void DisplayListCanvasRecorder::onDrawAtlas2(const SkImage* image,
@@ -204,8 +205,8 @@ void DisplayListCanvasRecorder::onDrawAtlas2(const SkImage* image,
   if (paint != nullptr) {
     builder_->setAttributesFromPaint(*paint, kDrawAtlasWithPaintFlags);
   }
-  builder_->drawAtlas(sk_ref_sp(image), xform, src, colors, count, mode,
-                      sampling, cull, paint != nullptr);
+  builder_->drawAtlas(DlImage::Make(image), xform, src, colors, count,
+                      ToDl(mode), sampling, cull, paint != nullptr);
 }
 
 void DisplayListCanvasRecorder::onDrawTextBlob(const SkTextBlob* blob,

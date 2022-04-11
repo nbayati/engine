@@ -47,11 +47,11 @@ void main() {
 }
 
 void testMain() {
+  ensureFlutterViewEmbedderInitialized();
   final html.Element glassPane = flutterViewEmbedder.glassPaneElement!;
   double dpi = 1.0;
 
   setUp(() {
-    ensureFlutterViewEmbedderInitialized();
     ui.window.onPointerDataPacket = null;
     dpi = window.devicePixelRatio;
   });
