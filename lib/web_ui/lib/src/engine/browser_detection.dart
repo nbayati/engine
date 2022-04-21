@@ -241,6 +241,12 @@ bool get isIosSafari =>
     browserEngine == BrowserEngine.webkit &&
     operatingSystem == OperatingSystem.iOs;
 
+/// Whether the current browser is Safari.
+bool get isSafari => browserEngine == BrowserEngine.webkit;
+
+/// Whether the current browser is Firefox.
+bool get isFirefox => browserEngine == BrowserEngine.firefox;
+
 /// Use in tests to simulate the detection of iOS 15.
 bool? debugIsIOS15;
 

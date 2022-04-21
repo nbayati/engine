@@ -56,6 +56,13 @@ void testMain() {
     dpi = window.devicePixelRatio;
   });
 
+  test('ios workaround', () {
+    final MockSafariPointerEventWorkaround mockSafariPointer = MockSafariPointerEventWorkaround();
+    SafariPointerEventWorkaround.instance = mockSafariPointer;
+    PointerBinding(html.DivElement());
+    expect(mockSafariPointer.workAroundInvoked, isIosSafari);
+  });
+
   test('_PointerEventContext generates expected events', () {
     if (!_PointerEventContext().isSupported) {
       return;

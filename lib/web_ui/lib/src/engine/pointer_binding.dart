@@ -78,7 +78,7 @@ class PointerBinding {
 
   static void initInstance(html.Element glassPaneElement) {
     if (_instance == null) {
-      _instance = PointerBinding._(glassPaneElement);
+      _instance = PointerBinding(glassPaneElement);
       assert(() {
         registerHotRestartListener(() {
           _instance!._adapter.clearListeners();
@@ -89,9 +89,12 @@ class PointerBinding {
     }
   }
 
-  PointerBinding._(this.glassPaneElement)
+  PointerBinding(this.glassPaneElement)
     : _pointerDataConverter = PointerDataConverter(),
       _detector = const PointerSupportDetector() {
+    if (isIosSafari) {
+      SafariPointerEventWorkaround.instance.workAroundMissingPointerEvents();
+    }
     _adapter = _createAdapter();
   }
 
